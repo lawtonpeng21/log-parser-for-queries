@@ -1,5 +1,7 @@
 # log-parser-for-queries
 
+Make sure both log_parser_main.py and log_parser_module.py are both installed in the same directory.
+
 To use this program:
 1. Folder Paths:
 * Replace "C:\Users\m295939\Desktop\New folder" with the actual path to the folder containing your log files.
