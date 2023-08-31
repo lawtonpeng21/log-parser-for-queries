@@ -4,13 +4,11 @@ import pandas as pd
 
 class LogParser:
     def __init__(self, log_file_path, output_folder):
-        # Constructor to initialize the LogParser class
         self.log_file_path = log_file_path
         self.output_folder = output_folder
         self.log_files = self._get_log_files()
 
     def _get_log_files(self):
-        # Helper method to retrieve a list of log files in the specified folder
         if not os.path.exists(self.log_file_path):
             print("Folder does not exist")
             return []
@@ -19,7 +17,6 @@ class LogParser:
         return log_files
 
     def extract_information(self, keyword, timestamp_pattern, date_pattern):
-        # Method to extract information from log files
         for file_name in self.log_files:
             file_path = os.path.join(self.log_file_path, file_name)
             with open(file_path, 'r', encoding="utf8") as file:
@@ -36,7 +33,6 @@ class LogParser:
                 if query_found:
                     if re.search(timestamp_pattern, line):
                         timestamp_string = re.findall(timestamp_pattern, line)[0]
-                        # Create an entry with parsed information
                         parsed_entry = {"Timestamp": timestamp_string, "Date": date_string, "Username": username, "Query": query_string.strip()}
                         parsed_data.append(parsed_entry)
                         query_string = ""
@@ -49,7 +45,7 @@ class LogParser:
                     timestamp_string = re.findall(timestamp_pattern, line)[0]
                     query_found = True
 
-                    # Extract username from the line using regex
+                    # Extract username from the line
                     match = re.search(r'#(.+)', line)
                     if match:
                         username = match.group(1).strip()
@@ -62,25 +58,6 @@ class LogParser:
 
             print(f"Parsed information saved to {output_file_path}")
 
-def main():
-    # Main function to execute the program
-    log_folder_path = r"C:\Users\m295939\Desktop\New folder"  # Replace with the actual folder path
-    output_folder = os.path.join(os.path.expanduser("~"), "Desktop", "parsed_logs")
-
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-
-    log_parser = LogParser(log_folder_path, output_folder)
-
-    keyword = "-DEBUG in i.u.i.o.a.r.impl.QuestQueryProcessor - SPARQL query:"
-    timestamp_pattern = r'\d{2}:\d{2}:\d{2}\.\d{3}'
-    date_pattern = r'\d{4}-\d{2}-\d{2}'
-
-    # Call the LogParser's extract_information method
-    log_parser.extract_information(keyword, timestamp_pattern, date_pattern)
-
-if __name__ == "__main__":
-    main()
 
 
 
