@@ -1,4 +1,5 @@
 # log-parser-for-queries
+Python version 3.11.4
 
 Make sure both log_parser_main.py and log_parser_module.py are both installed in the same directory.
 
